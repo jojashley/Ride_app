@@ -3,12 +3,13 @@ import RideLayout from "@/components/RideLayout";
 import DriverCard from "@/components/DriverCard";
 import CustomButton from "@/components/CustomButton";
 import { router } from "expo-router";
-import { useDriverStore } from "@/store";
+import {useDriverStore, useRideStore} from "@/store";
 import React from "react";
 import { useTranslation } from 'react-i18next';
 
 const ConfirmRide = () => {
     const { drivers, selectedDriver, setSelectedDriver } = useDriverStore();
+  const { setSelectedRide } = useRideStore();
     const { t } = useTranslation();
     return (
         <RideLayout title={t('chooseADriver')} snapPoints={["65%", "85%"]}>
@@ -18,16 +19,13 @@ const ConfirmRide = () => {
                     <DriverCard
                         selected={selectedDriver!}
                         item={item}
-                        setSelected={() => setSelectedDriver(Number(item.id)!)}
+                        setSelected={() => {
+                          const id_driver = Number(item.driver_id)!;
+                          setSelectedRide(id_driver);
+                          setSelectedDriver(id_driver);
+                          router.push("/(root)/book-ride");
+                        }}
                     />
-                )}
-                ListFooterComponent={() => (
-                    <View className="mx-5 mt-10">
-                        <CustomButton
-                            title={t('selectRide')}
-                            onPress={() => router.push("/(root)/book-ride")}
-                        />
-                    </View>
                 )}
             />
         </RideLayout>

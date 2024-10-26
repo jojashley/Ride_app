@@ -4,19 +4,28 @@ import {Image, Text, View} from "react-native";
 import RideLayout from "@/components/RideLayout";
 import {icons} from "@/constants";
 import {formatTime} from "@/lib/utils";
-import {useDriverStore, useLocationStore} from "@/store";
+import {useDriverStore, useLocationStore, useRideStore} from "@/store";
 import Payment from "@/components/Payment";
 import { useTranslation } from 'react-i18next';
+import {useEffect} from "react";
 
 
 const BookRide = () => {
     const {userAddress, destinationAddress} = useLocationStore();
     const {drivers, selectedDriver} = useDriverStore();
+    const {selectedRide, rides} = useRideStore();
     const { t } = useTranslation();
 
     const driverDetails = drivers?.filter(
-        (driver) => +driver.id === selectedDriver,
+        (driver) => +driver.driver_id === selectedDriver,
     )[0];
+    const rideDetails = rides?.filter(
+      (ride) => selectedRide && ride.driver_id === selectedRide.driver_id,
+    )[0];
+
+    useEffect(() => {
+        console.log(driverDetails);
+    },[]);
 
     return (
         <RideLayout title={t('bookRide')} snapPoints={["75%", "90%"]}>
@@ -33,7 +42,7 @@ const BookRide = () => {
 
                     <View className="flex flex-row items-center justify-center mt-5 space-x-2">
                         <Text className="text-lg font-JakartaSemiBold">
-                            {driverDetails?.title}
+                            Information Ride
                         </Text>
 
                         <View className="flex flex-row items-center space-x-0.5">
@@ -54,14 +63,7 @@ const BookRide = () => {
                     <View className="flex flex-row items-center justify-between w-full border-b border-white py-3">
                         <Text className="text-lg font-JakartaRegular">{t('ridePrice')}</Text>
                         <Text className="text-lg font-JakartaRegular text-[#0CC25F]">
-                            ${driverDetails?.price}
-                        </Text>
-                    </View>
-
-                    <View className="flex flex-row items-center justify-between w-full border-b border-white py-3">
-                        <Text className="text-lg font-JakartaRegular">{t('pickupTime')}</Text>
-                        <Text className="text-lg font-JakartaRegular">
-                            {formatTime(driverDetails?.time || 5!)}
+                            ₡{rideDetails?.fare_price}
                         </Text>
                     </View>
 
@@ -72,24 +74,6 @@ const BookRide = () => {
                         </Text>
                     </View>
                 </View>
-
-                <View className="flex flex-col w-full items-start justify-center mt-5">
-                    <View
-                        className="flex flex-row items-center justify-start mt-3 border-t border-b border-general-700 w-full py-3">
-                        <Image source={icons.to} className="w-6 h-6"/>
-                        <Text className="text-lg font-JakartaRegular ml-2">
-                            {userAddress}
-                        </Text>
-                    </View>
-
-                    <View className="flex flex-row items-center justify-start border-b border-general-700 w-full py-3">
-                        <Image source={icons.point} className="w-6 h-6"/>
-                        <Text className="text-lg font-JakartaRegular ml-2">
-                            {destinationAddress}
-                        </Text>
-                    </View>
-                </View>
-
                 <Payment />
             </>
         </RideLayout>

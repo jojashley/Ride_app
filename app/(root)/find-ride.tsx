@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import { useDriverStore, useLocationStore } from "@/store";
+import { useDriverStore, useLocationStore, useRideStore } from "@/store";
 import RideLayout from "@/components/RideLayout";
 import GoogleTextInput from "@/components/GoogleTextInput";
 import { icons } from "@/constants";
@@ -25,6 +25,7 @@ const transformDriverData = (data: any[]): Driver[] => {
 
 const FindRide = () => {
     const { setDrivers } = useDriverStore();
+    const { setRides } = useRideStore();
     const {
         userAddress,
         destinationAddress,
@@ -50,7 +51,9 @@ const FindRide = () => {
                     destination_longitude: destinationLongitude,
                 }),
             });
-            const drivers = transformDriverData(response.data);
+            const result = response.data;
+            setRides(result);
+            const drivers = transformDriverData(result);
             console.log(drivers);
             setDrivers(drivers);
             router.push("/(root)/confirm-ride");

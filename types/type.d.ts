@@ -20,7 +20,7 @@ declare interface ButtomGroupProps {
 declare interface MarkerData {
     latitude: number;
     longitude: number;
-    id: number;
+    driver_id: number;
     title: string;
     profile_image_url: string;
     car_image_url: string;
@@ -144,4 +144,32 @@ declare interface DriverCardProps {
     item: MarkerData;
     selected: number;
     setSelected: () => void;
+}
+
+export interface RideData {
+    car_seats: number;
+    created_at: string;
+    departure_time: string;
+    destination_address: string;
+    destination_latitude: string;
+    destination_longitude: string;
+    driver_id: number;
+    driver_last_name: string;
+    driver_name: string;
+    fare_price: string;
+    origin_address: string;
+    origin_latitude: string;
+    origin_longitude: string;
+    payment_status: string;
+    ride_time: string;
+    user_email: string;
+}
+
+export interface RideStore {
+    rides: RideData[];
+    selectedRide: RideData | null;
+    addRide: (newRide: RideData) => void;
+    setRides: (rides: RideData[]) => void;
+    setSelectedRide: (rideId: number) => void;
+    clearSelectedRide: () => void;
 }
