@@ -74,7 +74,7 @@ const BookRide = () => {
                         </Text>
                     </View>
                 </View>
-                <Payment />
+                <Payment id={selectedRide?.ride_id ?? 0}/>
             </>
         </RideLayout>
     );

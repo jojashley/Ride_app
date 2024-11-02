@@ -40,6 +40,7 @@ export async function POST(request: Request) {
         r.fare_price,
         r.payment_status,
         r.driver_id,
+        r.ride_id,
         u.email AS user_email,
         r.created_at,
         u.name AS driver_name,
@@ -55,7 +56,8 @@ export async function POST(request: Request) {
         r.origin_latitude = ${origin_latitude}
         AND r.origin_longitude = ${origin_longitude}
         AND r.destination_latitude = ${destination_latitude}
-        AND r.destination_longitude = ${destination_longitude};
+        AND r.destination_longitude = ${destination_longitude}
+        AND r.payment_status <> ${"paid"};
         `;
 
         return new Response(JSON.stringify({ data: response }), { status: 200 });

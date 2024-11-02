@@ -154,6 +154,7 @@ export interface RideData {
     destination_latitude: string;
     destination_longitude: string;
     driver_id: number;
+    ride_id:number;
     driver_last_name: string;
     driver_name: string;
     fare_price: string;
