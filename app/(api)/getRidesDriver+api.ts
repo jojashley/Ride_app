@@ -53,7 +53,6 @@ export async function POST(request: Request) {
             );
         }
 
-        console.log(response);
         return new Response(JSON.stringify({data: response}), {status: 200});
 
     } catch (error) {

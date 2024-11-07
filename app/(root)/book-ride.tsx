@@ -12,6 +12,7 @@ import {useEffect} from "react";
 
 const BookRide = () => {
     const {userAddress, destinationAddress} = useLocationStore();
+    const { user } = useUser();
     const {drivers, selectedDriver} = useDriverStore();
     const {selectedRide, rides} = useRideStore();
     const { t } = useTranslation();
@@ -74,7 +75,7 @@ const BookRide = () => {
                         </Text>
                     </View>
                 </View>
-                <Payment id={selectedRide?.ride_id ?? 0}/>
+                <Payment id={selectedRide?.ride_id ?? 0} email={user?.emailAddresses[0].emailAddress ?? ''}/>
             </>
         </RideLayout>
     );

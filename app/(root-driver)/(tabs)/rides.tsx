@@ -77,7 +77,7 @@ const Rides = () => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    email: user.emailAddresses[0].emailAddress,
+                    email: user?.emailAddresses[0].emailAddress,
                 }),
             });
 

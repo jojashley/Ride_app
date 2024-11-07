@@ -57,7 +57,7 @@ const RideCard = ({ride:{
                         Driver
                     </Text>
                     <Text className="text-md font-JakartaMedium text-gray-500">
-                        {driver.first_name}{driver.last_name}
+                        {driver.first_name} {driver.last_name}
                     </Text>
                 </View>
 

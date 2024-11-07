@@ -57,7 +57,7 @@ export async function POST(request: Request) {
         AND r.origin_longitude = ${origin_longitude}
         AND r.destination_latitude = ${destination_latitude}
         AND r.destination_longitude = ${destination_longitude}
-        AND r.payment_status <> ${"paid"};
+        AND r.payment_status = ${"pending"};
         `;
 
         return new Response(JSON.stringify({ data: response }), { status: 200 });

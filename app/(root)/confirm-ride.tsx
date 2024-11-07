@@ -6,9 +6,11 @@ import { router } from "expo-router";
 import {useDriverStore, useRideStore} from "@/store";
 import React from "react";
 import { useTranslation } from 'react-i18next';
+import {useUser} from "@clerk/clerk-expo";
 
 const ConfirmRide = () => {
     const { drivers, selectedDriver, setSelectedDriver } = useDriverStore();
+  const { user } = useUser();
   const { setSelectedRide } = useRideStore();
     const { t } = useTranslation();
     return (
